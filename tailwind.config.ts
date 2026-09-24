@@ -4,6 +4,7 @@ const config = {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
     screens: {
+      xs: '26.875rem',
       sm: '40rem',
       md: '48rem',
       lg: '64rem',
@@ -56,7 +57,7 @@ const config = {
       },
       spacing: {
         gutter: 'clamp(1.25rem, 4vw, 4rem)',
-        section: 'clamp(4rem, 8vw, 7.5rem)',
+        section: 'clamp(4rem, 7vw, 7rem)',
       },
     },
   },

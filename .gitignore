@@ -5,3 +5,7 @@ coverage
 .env.local
 .DS_Store
 *.local
+.env.*
+!.env.example
+*.tmp
+*.temp

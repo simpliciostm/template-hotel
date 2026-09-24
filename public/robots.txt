@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+# Configuracao para deploy demonstrativo. Revisar antes da publicacao oficial.

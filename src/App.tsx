@@ -1,59 +1,53 @@
-import { ArrowUpRight, BedDouble, MapPin } from 'lucide-react';
+import { useEffect } from 'react';
 
-import { PageShell } from './components/layout/PageShell';
-import { ButtonLink } from './components/ui/ButtonLink';
+import { DemoNotice } from './components/layout/DemoNotice';
+import { Footer } from './components/layout/Footer';
+import { Header } from './components/layout/Header';
+import { Hero } from './components/sections/Hero';
+import { Introduction } from './components/sections/Introduction';
+import { Amenities } from './components/sections/Amenities';
+import { BookingChannels } from './components/sections/BookingChannels';
+import { Gallery } from './components/sections/Gallery';
+import { Location } from './components/sections/Location';
+import { Reviews } from './components/sections/Reviews';
+import { Studios } from './components/sections/Studios';
 import { hotel } from './data/hotel';
+import { applyDocumentMetadata } from './utils/metadata';
 
 function App() {
+  useEffect(() => {
+    applyDocumentMetadata(hotel);
+  }, []);
+
+  useEffect(() => {
+    if (!window.location.hash) {
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      const target = document.getElementById(window.location.hash.slice(1));
+      target?.scrollIntoView();
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
   return (
-    <PageShell>
-      <main className="mx-auto flex min-h-screen w-full max-w-site flex-col justify-center px-gutter py-section">
-        <p className="mb-5 text-xs font-semibold uppercase tracking-[0.24em] text-accent">
-          Fundacao visual
-        </p>
-
-        <section className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-          <div className="max-w-copy">
-            <h1 className="font-display text-5xl leading-[0.98] text-ink sm:text-6xl lg:text-7xl">
-              {hotel.name}
-            </h1>
-            <p className="mt-7 text-base leading-8 text-ink-muted sm:text-lg">
-              {hotel.description}
-            </p>
-          </div>
-
-          <div className="border-l border-line pl-6 text-sm leading-7 text-ink-muted sm:pl-8">
-            <div className="flex items-start gap-3">
-              <MapPin className="mt-1 size-5 text-accent" aria-hidden="true" />
-              <p>
-                {hotel.address.city || 'Cidade placeholder'}
-                {hotel.address.state ? `, ${hotel.address.state}` : ''}
-              </p>
-            </div>
-            <div className="mt-5 flex items-start gap-3">
-              <BedDouble
-                className="mt-1 size-5 text-accent"
-                aria-hidden="true"
-              />
-              <p>
-                Estrutura preparada para receber as proximas secoes editoriais
-                do site.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <div className="mt-12 flex flex-wrap gap-4">
-          <ButtonLink href="#estrutura">
-            Estrutura inicial
-            <ArrowUpRight className="size-4" aria-hidden="true" />
-          </ButtonLink>
-          <ButtonLink href="#design" variant="secondary">
-            Direcao visual
-          </ButtonLink>
-        </div>
+    <div data-publication-status={hotel.publication.status}>
+      <DemoNotice />
+      <Header />
+      <main id="inicio">
+        <Hero />
+        <Introduction />
+        <Studios />
+        <Amenities />
+        <Gallery />
+        <Reviews />
+        <Location />
+        <BookingChannels />
       </main>
-    </PageShell>
+      <Footer />
+    </div>
   );
 }
 
